@@ -32,7 +32,7 @@ THEMES = {
 REDUCED = ("@media (prefers-reduced-motion:reduce){*{animation:none!important}}")
 
 STACK = ["Python", "PyTorch", "C++", "TypeScript", "CUDA", "Slurm",
-         "Apptainer", "vLLM", "Supabase", "three.js"]
+         "Apptainer", "vLLM", "Supabase", "Vercel"]
 
 
 def fmt(n):

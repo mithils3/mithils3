@@ -4,10 +4,12 @@
     <source media="(prefers-color-scheme: light)" srcset="assets/title-light.svg">
     <img alt="Mithil Salunkhe" src="assets/title-light.svg" width="100%">
   </picture>
-  <img alt="Daily contribution volume over the last 12 months, rendered in 3D" src="assets/skyline.webp" width="100%">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/skyline-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/skyline-light.svg">
+    <img alt="The last twelve months of contributions as an axonometric city, one tower per day" src="assets/skyline-light.svg" width="100%">
+  </picture>
   <br>
-  <sub>One tower per day, one beat per month. Height and color are commit volume, the callout marks the busiest day. Rendered offline in three.js.</sub>
-  <br><br>
   <a href="https://www.kaggle.com/mithilsalunkhe">Kaggle</a> ·
   <a href="https://x.com/mithil_salunkhe">X</a> ·
   <a href="https://orcid.org/0009-0003-4106-6962">ORCID</a> ·
@@ -61,4 +63,4 @@ Sophomore at the University of Illinois studying computer science. I build evalu
 
 ---
 
-<sub>Everything above is generated from live data by [`scripts/`](scripts) and committed by [a workflow](.github/workflows/assets.yml). The vector assets are hand-rendered SVG that carry their own CSS motion, honor `prefers-reduced-motion`, and stay legible with animation off. The 3D hero is a three.js render baked to a still, because the same frame as a 106-frame orbit measured 1.5 MB against 40 KB. This page costs 107 KB on the wire.</sub>
+<sub>Everything above is generated from live data by [`scripts/`](scripts) and committed by [a workflow](.github/workflows/assets.yml). The vector assets are hand-rendered SVG that carry their own CSS motion, honor `prefers-reduced-motion`, and stay legible with animation off. The 3D hero is projected and depth-sorted in Python and written out as vector polygons with flat-shaded faces, so it is exact at any zoom and on any display.</sub>

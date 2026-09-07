@@ -1,23 +1,17 @@
 name: Rebuild assets
 
-# Two jobs on purpose. The vector assets carry the live numbers and must
-# refresh daily; the three.js hero is a slow WebGL render of a 12-month
-# window that barely moves, so it runs weekly and is isolated so its
-# failure can never block the daily refresh.
+# Everything on this profile is vector and pure Python now, so one cheap job
+# rebuilds the whole page from live data every morning. No browser, no npm,
+# no GPU.
 
 on:
   schedule:
     - cron: "17 11 * * *"
   workflow_dispatch:
-    inputs:
-      skyline:
-        description: "Also re-render the three.js hero"
-        type: boolean
-        default: false
   push:
     paths:
       - "scripts/**"
-      - "scenes/**"
+      - "data/**"
       - ".github/workflows/assets.yml"
 
 permissions:
@@ -27,57 +21,30 @@ concurrency:
   group: assets
 
 jobs:
-  vectors:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Refresh contribution data
         env:
           GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
         run: python3 scripts/fetch_contributions.py
-      - name: Render vector assets
-        run: python3 scripts/build_svgs.py
+
+      - name: Render assets
+        run: |
+          python3 scripts/build_skyline.py
+          python3 scripts/build_svgs.py
+
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets data
           git diff --cached --quiet && exit 0
-          git commit -m "chore: refresh vector assets"
-          git pull --rebase origin main
-          git push
-
-  skyline:
-    needs: vectors
-    if: github.event_name != 'schedule' || github.event.schedule == '17 11 * * 0'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - name: Install three.js
-        run: npm install --no-audit --no-fund
-      - name: Install Playwright and Pillow
-        run: pip install playwright pillow
-      - name: Install Chromium
-        run: python3 -m playwright install --with-deps chromium
-      - name: Install fonts
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-dejavu-core
-      - name: Render the three.js hero
-        run: python3 scripts/render_skyline.py
-      - name: Commit if changed
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets
-          git diff --cached --quiet && exit 0
-          git commit -m "chore: re-render the skyline"
+          git commit -m "chore: refresh generated assets"
           git pull --rebase origin main
           git push
