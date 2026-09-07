@@ -29,11 +29,11 @@ SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif"
 MONO = "ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace"
 
 THEMES = {
-    "dark": dict(ramp=["#7d3a10", "#bd5a0d", "#ef7f0b", "#ffa252"],
+    "dark": dict(ramp=["#116634", "#188f45", "#28bd5b", "#56e883"],
                  empty="#2b323d", ink="#e6edf3", muted="#8b939f", faint="#6b7480",
                  shadow="#000000", shadow_op=0.30,
                  face={"top": 1.00, "front": 0.80, "right": 0.585}),
-    "light": dict(ramp=["#ffc999", "#f79340", "#e0670a", "#a33f00"],
+    "light": dict(ramp=["#b4e8c1", "#5cc775", "#2c9c4e", "#106b31"],
                   empty="#dfe3e8", ink="#1f2328", muted="#59636e", faint="#818b98",
                   shadow="#243044", shadow_op=0.13,
                   face={"top": 1.00, "front": 0.87, "right": 0.72}),
@@ -118,9 +118,14 @@ def build(theme, cal):
         right = [(X + ax, Y + ay), (X + ax + bx, Y + ay + by),
                  (X + ax + bx, Y + ay + by - h), (X + ax, Y + ay - h)]
         g = groups[c["mi"]]
-        g.append(f'<path d="{quad(front)}" fill="{shade(c["col"], t["face"]["front"])}"/>')
-        g.append(f'<path d="{quad(right)}" fill="{shade(c["col"], t["face"]["right"])}"/>')
-        g.append(f'<path d="{quad(top)}" fill="{shade(c["col"], t["face"]["top"])}"/>')
+        if c["count"]:
+            g.append(f'<path d="{quad(front)}" fill="{shade(c["col"], t["face"]["front"])}"/>')
+            g.append(f'<path d="{quad(right)}" fill="{shade(c["col"], t["face"]["right"])}"/>')
+            g.append(f'<path d="{quad(top)}" fill="{shade(c["col"], t["face"]["top"])}"/>')
+        else:
+            # a day with nothing on it is 3px tall; one quad reads the same and
+            # keeps a third of the scene's paths out of the document
+            g.append(f'<path d="{quad(top)}" fill="{c["col"]}"/>')
         if c["count"]:
             k = 0.26 * h
             shadows.append(quad([(X + k, Y + k * 0.42), (X + ax + k, Y + ay + k * 0.42),
@@ -131,12 +136,14 @@ def build(theme, cal):
          f'height="{H:.0f}" role="img" aria-label="{cal["total"]:,} contributions over the last '
          f'twelve months, one tower per day. Busiest day {peak["date"]} with '
          f'{peak["contributionCount"]} commits.">']
+    # An explicit numeric origin per group. transform-box:fill-box would make
+    # Chrome recompute a bounding box over every path in the group on every
+    # frame, which is what made the build stutter.
     p.append(f"""<style>
 .m{{font-family:{MONO}}}
-.mo{{transform-box:fill-box;transform-origin:50% 100%;
-animation:rise .62s cubic-bezier(.22,.9,.3,1.06) var(--d) backwards}}
-@keyframes rise{{from{{transform:scaleY(.012)}}}}
-.lb{{animation:app .5s ease-out var(--d) backwards}}
+.mo{{animation:rise 1.35s cubic-bezier(.16,.72,.24,1) var(--d) backwards}}
+@keyframes rise{{from{{transform:scaleY(.015)}}}}
+.lb{{animation:app 1.1s ease-out var(--d) backwards}}
 @keyframes app{{from{{opacity:0}}}}
 @media (prefers-reduced-motion:reduce){{.mo,.lb{{animation:none}}}}
 </style>""")
@@ -144,9 +151,14 @@ animation:rise .62s cubic-bezier(.22,.9,.3,1.06) var(--d) backwards}}
     p.append(f'<path d="{" ".join(shadows)}" fill="{t["shadow"]}" '
              f'fill-opacity="{t["shadow_op"]}"/>')
 
-    beat = 0.085
+    beat = 0.34
     for mi, key in enumerate(keys):
-        p.append(f'<g class="mo" style="--d:{mi*beat:.3f}s">' + "".join(groups[mi]) + "</g>")
+        mcells = [c for c in cells if c["mi"] == mi]
+        gx = sum(sx(ox(c)) for c in mcells) / len(mcells)
+        gy = max(sy(oy(c)) + by for c in mcells)
+        p.append(f'<g class="mo" style="--d:{mi*beat:.2f}s;'
+                 f'transform-origin:{gx:.0f}px {gy:.0f}px">'
+                 + "".join(groups[mi]) + "</g>")
 
     # month scale on the straight front edge
     base_y = sy(max(oy(c) + by for c in cells)) + 27

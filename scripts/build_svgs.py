@@ -20,13 +20,14 @@ TAGLINE = "CS @ Illinois  ·  agent evaluation, ML systems, HPC"
 SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif"
 MONO = "ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace"
 
-# One accent hue throughout. Each theme's step clears 4.5:1 on its own surface
-# (#b5560c on white = 4.88, #ff9c3d on #0d1117 = 9.08).
+# One accent hue throughout, the same green the skyline is built from. Each
+# theme's step clears 4.5:1 on its own surface (#106b31 on white = 6.64,
+# #56d364 on #0d1117 = 9.82).
 THEMES = {
     "dark": dict(ink="#e6edf3", muted="#9198a1", faint="#6e7681",
-                 rule="#30363d", grid="#21262d", accent="#ff9c3d", surface="#0d1117"),
+                 rule="#30363d", grid="#21262d", accent="#56d364", surface="#0d1117"),
     "light": dict(ink="#1f2328", muted="#59636e", faint="#818b98",
-                  rule="#d1d9e0", grid="#e6eaef", accent="#b5560c", surface="#ffffff"),
+                  rule="#d1d9e0", grid="#e6eaef", accent="#106b31", surface="#ffffff"),
 }
 
 REDUCED = ("@media (prefers-reduced-motion:reduce){*{animation:none!important}}")
