@@ -1,13 +1,17 @@
 name: Rebuild assets
 
+# Two jobs on purpose. The vector assets carry the live numbers and must
+# refresh daily; the three.js hero is a slow WebGL render of a 12-month
+# window that barely moves, so it runs weekly and is isolated so its
+# failure can never block the daily refresh.
+
 on:
   schedule:
-    - cron: "17 11 * * *"       # vector assets, daily
-    - cron: "35 11 * * 0"       # 3D hero, Sundays
+    - cron: "17 11 * * *"
   workflow_dispatch:
     inputs:
       skyline:
-        description: "Re-render the three.js hero"
+        description: "Also re-render the three.js hero"
         type: boolean
         default: false
   push:
@@ -21,10 +25,34 @@ permissions:
 
 concurrency:
   group: assets
-  cancel-in-progress: false
 
 jobs:
-  build:
+  vectors:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Refresh contribution data
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+        run: python3 scripts/fetch_contributions.py
+      - name: Render vector assets
+        run: python3 scripts/build_svgs.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets data
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: refresh vector assets"
+          git pull --rebase origin main
+          git push
+
+  skyline:
+    needs: vectors
+    if: github.event_name != 'schedule' || github.event.schedule == '17 11 * * 0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,38 +62,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-
-      - name: Decide whether the 3D hero is in scope
-        id: scope
-        run: |
-          if [ "${{ github.event.schedule }}" = "35 11 * * 0" ] \
-             || [ "${{ inputs.skyline }}" = "true" ] \
-             || [ "${{ github.event_name }}" = "push" ]; then
-            echo "skyline=yes" >> "$GITHUB_OUTPUT"
-          else
-            echo "skyline=no" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Refresh contribution data
-        env:
-          GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
-        run: python3 scripts/fetch_contributions.py
-
-      - name: Render vector assets
-        run: python3 scripts/build_svgs.py
-
+      - name: Install three.js
+        run: npm install --no-audit --no-fund
+      - name: Install Playwright
+        run: pip install playwright
+      - name: Install Chromium
+        run: python3 -m playwright install --with-deps chromium
       - name: Render the three.js hero
-        if: steps.scope.outputs.skyline == 'yes'
-        run: |
-          npm ci --omit=dev || npm install --omit=dev
-          pip install --quiet playwright
-          python3 -m playwright install --with-deps chromium
-          python3 scripts/render_skyline.py
-
+        run: python3 scripts/render_skyline.py
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets data
-          git diff --cached --quiet || git commit -m "chore: refresh generated assets"
+          git add assets
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: re-render the skyline"
+          git pull --rebase origin main
           git push

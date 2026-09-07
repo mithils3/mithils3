@@ -6,7 +6,7 @@
   </picture>
   <img alt="Daily contribution volume over the last 12 months, rendered in 3D" src="assets/skyline.webp" width="100%">
   <br>
-  <sub>Every day of the last year as a tower. Height is commit volume, color is intensity. Rendered offline in three.js, rebuilt weekly.</sub>
+  <sub>Every day of the last year as a tower. Height is commit volume, color is intensity. Rendered offline in three.js from the contribution API.</sub>
   <br><br>
   <a href="https://www.kaggle.com/mithilsalunkhe">Kaggle</a> ·
   <a href="https://x.com/mithil_salunkhe">X</a> ·
