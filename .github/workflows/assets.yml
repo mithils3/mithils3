@@ -64,12 +64,12 @@ jobs:
           node-version: "22"
       - name: Install three.js
         run: npm install --no-audit --no-fund
-      - name: Install Playwright
-        run: pip install playwright
+      - name: Install Playwright and Pillow
+        run: pip install playwright pillow
       - name: Install Chromium
         run: python3 -m playwright install --with-deps chromium
-      - name: Install ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Install fonts
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-dejavu-core
       - name: Render the three.js hero
         run: python3 scripts/render_skyline.py
       - name: Commit if changed
