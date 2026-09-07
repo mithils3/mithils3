@@ -5,7 +5,7 @@ Default is a single high-quality still. --frames N renders an orbiting loop
 instead, which costs roughly 35x the bytes for motion nobody watches twice;
 the still is what the README ships.
 """
-import argparse, functools, http.server, shutil, socketserver, subprocess, tempfile, threading
+import argparse, functools, http.server, shutil, socketserver, subprocess, sys, tempfile, threading
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -29,6 +29,9 @@ def main():
     ap.add_argument("--quality", type=int, default=86)
     ap.add_argument("--out", default="assets/skyline.webp")
     args = ap.parse_args()
+
+    if not shutil.which("ffmpeg"):
+        sys.exit("ffmpeg not found; it encodes the frames (apt-get install ffmpeg)")
 
     srv, port = serve(ROOT)
     tmp = Path(tempfile.mkdtemp(prefix="skyline-"))
