@@ -61,4 +61,4 @@ Sophomore at the University of Illinois studying computer science. I build evalu
 
 ---
 
-<sub>Everything above is generated from live data by [`scripts/`](scripts) and committed by [a workflow](.github/workflows). The vector assets carry their own CSS motion and honor `prefers-reduced-motion`; the 3D hero is a three.js render baked to a 98 KB still, because an orbiting loop of the same frame costs 35x the bytes. Total page weight is under 130 KB.</sub>
+<sub>Everything above is generated from live data by [`scripts/`](scripts) and committed by [a workflow](.github/workflows/assets.yml). The vector assets are hand-rendered SVG that carry their own CSS motion, honor `prefers-reduced-motion`, and stay legible with animation off. The 3D hero is a three.js render baked to a still, because the same frame as a 106-frame orbit measured 1.5 MB against 40 KB. This page costs 107 KB on the wire.</sub>
