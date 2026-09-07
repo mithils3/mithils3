@@ -1,0 +1,9 @@
+{
+  "name": "mithils3-profile",
+  "private": true,
+  "type": "module",
+  "description": "Render pipeline for the github.com/mithils3 profile README",
+  "dependencies": {
+    "three": "0.185.1"
+  }
+}

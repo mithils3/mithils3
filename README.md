@@ -1,15 +1,17 @@
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/header-light.svg">
-    <img alt="Mithil Salunkhe" src="assets/header-light.svg" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/title-light.svg">
+    <img alt="Mithil Salunkhe" src="assets/title-light.svg" width="100%">
   </picture>
-</div>
-
-<div align="center">
-  <a href="https://www.kaggle.com/mithilsalunkhe"><img alt="Kaggle" src="https://img.shields.io/badge/Kaggle-mithilsalunkhe-2b2b2b?style=flat-square&logo=kaggle&logoColor=20beff&labelColor=2b2b2b"></a>
-  <a href="https://x.com/mithil_salunkhe"><img alt="X" src="https://img.shields.io/badge/X-mithil__salunkhe-2b2b2b?style=flat-square&logo=x&logoColor=e6edf3&labelColor=2b2b2b"></a>
-  <a href="mailto:mithils3@illinois.edu"><img alt="Email" src="https://img.shields.io/badge/Email-mithils3%40illinois.edu-2b2b2b?style=flat-square&logo=gmail&logoColor=ff5f05&labelColor=2b2b2b"></a>
+  <img alt="Daily contribution volume over the last 12 months, rendered in 3D" src="assets/skyline.webp" width="100%">
+  <br>
+  <sub>Every day of the last year as a tower. Height is commit volume, color is intensity. Rendered offline in three.js, rebuilt weekly.</sub>
+  <br><br>
+  <a href="https://www.kaggle.com/mithilsalunkhe">Kaggle</a> ·
+  <a href="https://x.com/mithil_salunkhe">X</a> ·
+  <a href="https://orcid.org/0009-0003-4106-6962">ORCID</a> ·
+  <a href="mailto:mithils3@illinois.edu">mithils3@illinois.edu</a>
 </div>
 
 <br>
@@ -19,6 +21,14 @@ Sophomore at the University of Illinois studying computer science. I build evalu
 ## Now
 
 **[RECLAIM](https://github.com/mithils3/reprocli)** measures whether AI agents can reproduce published ML research. Each of 100 NeurIPS 2025 papers is frozen to one target claim, a numeric tolerance, and a metered GPU-hour budget. A reproduction agent runs the experiment in an Apptainer sandbox on DeltaAI GH200 nodes, and a second pinned agent audits every run against its own execution evidence, because agents routinely report a success their logs do not support. 827 commits since June 1. Writing it up for ICLR.
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/compute-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/compute-light.svg">
+    <img alt="RECLAIM metered compute: cumulative H100-hours across reproduction runs" src="assets/compute-light.svg" width="100%">
+  </picture>
+</div>
 
 **[pl-cal](https://github.com/mithils3/pl-cal)** turns PrairieLearn deadlines and PrairieTest exam slots into a calendar you can subscribe to. Chrome extension, no server.
 
@@ -41,19 +51,14 @@ Sophomore at the University of Illinois studying computer science. I build evalu
 - **3rd** in the Trustii [AllergenChip Challenge](https://github.com/Trustii-team/AllergenChip)
 - **Kaggle Expert** with three competition silvers. [G2Net](https://www.kaggle.com/competitions/g2net-gravitational-wave-detection), [PetFinder Pawpularity](https://www.kaggle.com/competitions/petfinder-pawpularity-score), [Contrails](https://www.kaggle.com/competitions/google-research-identify-contrails-reduce-global-warming)
 
-## Toolbox
+## Stack
 
-<p>
-  <img alt="Python" src="https://img.shields.io/badge/Python-2b2b2b?style=flat-square&logo=python&logoColor=ffd343">
-  <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2b2b2b?style=flat-square&logo=pytorch&logoColor=ee4c2c">
-  <img alt="C++" src="https://img.shields.io/badge/C++-2b2b2b?style=flat-square&logo=cplusplus&logoColor=659ad2">
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-2b2b2b?style=flat-square&logo=typescript&logoColor=3178c6">
-  <img alt="CUDA" src="https://img.shields.io/badge/CUDA-2b2b2b?style=flat-square&logo=nvidia&logoColor=76b900">
-  <img alt="Slurm" src="https://img.shields.io/badge/Slurm-2b2b2b?style=flat-square&logo=linux&logoColor=e6edf3">
-  <img alt="Apptainer" src="https://img.shields.io/badge/Apptainer-2b2b2b?style=flat-square&logo=singularitystore&logoColor=e6edf3">
-  <img alt="vLLM" src="https://img.shields.io/badge/vLLM-2b2b2b?style=flat-square&logo=lightning&logoColor=ffd343">
-  <img alt="Supabase" src="https://img.shields.io/badge/Supabase-2b2b2b?style=flat-square&logo=supabase&logoColor=3ecf8e">
-  <img alt="Vercel" src="https://img.shields.io/badge/Vercel-2b2b2b?style=flat-square&logo=vercel&logoColor=ffffff">
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/stack-light.svg">
+  <img alt="Python, PyTorch, C++, TypeScript, CUDA, Slurm, Apptainer, vLLM, Supabase, three.js" src="assets/stack-light.svg">
+</picture>
 
-<sub>Header generated from live GitHub data by <a href="scripts/build_header.py">scripts/build_header.py</a>, rebuilt daily by <a href=".github/workflows/header.yml">a workflow</a>.</sub>
+---
+
+<sub>Everything above is generated from live data by [`scripts/`](scripts) and committed by [a workflow](.github/workflows). The vector assets carry their own CSS motion and honor `prefers-reduced-motion`; the 3D hero is a three.js render baked to a 98 KB still, because an orbiting loop of the same frame costs 35x the bytes. Total page weight is under 130 KB.</sub>

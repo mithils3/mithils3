@@ -1,0 +1,71 @@
+name: Rebuild assets
+
+on:
+  schedule:
+    - cron: "17 11 * * *"       # vector assets, daily
+    - cron: "35 11 * * 0"       # 3D hero, Sundays
+  workflow_dispatch:
+    inputs:
+      skyline:
+        description: "Re-render the three.js hero"
+        type: boolean
+        default: false
+  push:
+    paths:
+      - "scripts/**"
+      - "scenes/**"
+      - ".github/workflows/assets.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: assets
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Decide whether the 3D hero is in scope
+        id: scope
+        run: |
+          if [ "${{ github.event.schedule }}" = "35 11 * * 0" ] \
+             || [ "${{ inputs.skyline }}" = "true" ] \
+             || [ "${{ github.event_name }}" = "push" ]; then
+            echo "skyline=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "skyline=no" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Refresh contribution data
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+        run: python3 scripts/fetch_contributions.py
+
+      - name: Render vector assets
+        run: python3 scripts/build_svgs.py
+
+      - name: Render the three.js hero
+        if: steps.scope.outputs.skyline == 'yes'
+        run: |
+          npm ci --omit=dev || npm install --omit=dev
+          pip install --quiet playwright
+          python3 -m playwright install --with-deps chromium
+          python3 scripts/render_skyline.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets data
+          git diff --cached --quiet || git commit -m "chore: refresh generated assets"
+          git push
