@@ -36,6 +36,16 @@ Sophomore at the University of Illinois studying computer science. I build evalu
 
 **AIS at Illinois.** Exec this semester, running the technical track.
 
+**The meter.** All of it is built in an agent loop. Claude Code writes a transcript for every session, so what that way of working actually costs is sitting on disk and can be counted.
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/tokens-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/tokens-light.svg">
+    <img alt="Claude Code token meter: cumulative tokens across every local session" src="assets/tokens-light.svg" width="100%">
+  </picture>
+</div>
+
 ## Selected work
 
 | Project | What it is |
@@ -63,4 +73,4 @@ Sophomore at the University of Illinois studying computer science. I build evalu
 
 ---
 
-<sub>Everything above is generated from live data by [`scripts/`](scripts) and committed by [a workflow](.github/workflows/assets.yml). The vector assets are hand-rendered SVG that carry their own CSS motion, honor `prefers-reduced-motion`, and stay legible with animation off. The 3D hero is projected and depth-sorted in Python and written out as vector polygons with flat-shaded faces, so it is exact at any zoom and on any display.</sub>
+<sub>Everything above is generated from live data by [`scripts/`](scripts) and committed by [a workflow](.github/workflows/assets.yml). The token meter is the one exception, refreshed by hand, because the transcripts it counts never leave my machine. The vector assets are hand-rendered SVG that carry their own CSS motion, honor `prefers-reduced-motion`, and stay legible with animation off. The 3D hero is projected and depth-sorted in Python and written out as vector polygons with flat-shaded faces, so it is exact at any zoom and on any display.</sub>

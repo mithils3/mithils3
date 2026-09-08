@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Render the vector assets: title card, RECLAIM compute figure, stack strip.
+"""Render the vector assets: title card, RECLAIM compute figure, Claude Code
+token meter, stack strip.
 
 Each is emitted per theme and switched in the README with <picture>.
 
@@ -10,7 +11,7 @@ reader with prefers-reduced-motion, still sees the finished figure.
 """
 import json
 from datetime import date
-from math import ceil, hypot
+from math import ceil, floor, hypot, log10
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -42,6 +43,24 @@ def fmt(n):
     if n >= 1e6:
         return f"{n/1e6:.1f}M"
     return f"{n:,}"
+
+
+def tick(v):
+    if v >= 1e9:
+        return f"{v/1e9:g}B"
+    if v >= 1e6:
+        return f"{v/1e6:g}M"
+    return f"{v:g}"
+
+
+def nice_top(peak, divisions=4):
+    """Smallest axis ceiling that clears the peak with label headroom and still
+    divides into round ticks."""
+    want = peak * 1.13 / divisions
+    mag = 10 ** floor(log10(want))
+    for m in (1, 2, 2.5, 5, 10):
+        if m * mag >= want:
+            return m * mag * divisions
 
 
 def title_card(theme, contrib):
@@ -159,6 +178,95 @@ def compute_figure(theme, r):
     return "\n".join(p)
 
 
+def tokens_figure(theme, k):
+    """The same figure language as the compute chart, pointed at the agent loop
+    that builds everything else here."""
+    t = THEMES[theme]
+    W, H = 1200, 404
+    L, R, TOP, BOT = 4, 104, 152, 70
+    pw, ph = W - L - R, H - TOP - BOT
+
+    daily = k["daily"]
+    total, cached = k["tokens"], k["totals"]["cache_read_input_tokens"]
+    days = len(daily)
+    tiles = [(f"{k['sessions']:,}", "SESSIONS"),
+             (f"{k['turns']:,}", "ASSISTANT TURNS"),
+             (f"{k['tool_calls']:,}", "TOOL CALLS"),
+             (f"{100 * cached / total:.0f}%", "SERVED FROM CACHE")]
+
+    ytop = nice_top(max(d["cum"] for d in daily))
+    x = lambda i: L + pw * i / (days - 1)
+    y = lambda v: TOP + ph - ph * v / ytop
+
+    pts = [(x(i), y(d["cum"])) for i, d in enumerate(daily)]
+    line = " ".join(("M" if i == 0 else "L") + f"{a:.1f} {b:.1f}" for i, (a, b) in enumerate(pts))
+    area = line + f" L{pts[-1][0]:.1f} {TOP+ph:.1f} L{L} {TOP+ph:.1f} Z"
+    length = sum(hypot(pts[i+1][0]-pts[i][0], pts[i+1][1]-pts[i][1]) for i in range(len(pts)-1))
+
+    p = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" '
+         f'height="{H}" role="img" aria-label="Claude Code token meter. '
+         f'{total/1e9:.2f} billion cumulative tokens across {k["sessions"]:,} sessions, '
+         f'{k["window"][0]} to {k["window"][1]}.">']
+    p.append(f"""<defs><linearGradient id="tfill" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="{t['accent']}" stop-opacity="0.30"/>
+<stop offset="1" stop-color="{t['accent']}" stop-opacity="0.02"/></linearGradient></defs>""")
+    p.append(f"""<style>
+.s{{font-family:{SANS}}}.m{{font-family:{MONO}}}
+.trace{{stroke-dasharray:{length:.0f};stroke-dashoffset:0;animation:dr 1.7s cubic-bezier(.3,.7,.3,1)}}
+@keyframes dr{{from{{stroke-dashoffset:{length:.0f}}}}}
+.wash{{opacity:1;animation:wa 1.9s ease-out}}
+@keyframes wa{{from{{opacity:0}}}}
+{REDUCED}</style>""")
+
+    p.append(f'<text class="m" x="{L}" y="18" font-size="12" letter-spacing="1.2" '
+             f'fill="{t["faint"]}">CLAUDE CODE · TOKEN METER</text>')
+    p.append(f'<text class="s" x="{L}" y="52" font-size="26" font-weight="600" '
+             f'letter-spacing="-0.5" fill="{t["ink"]}">'
+             f'{total/1e9:.2f}B tokens through the agent loop in {days} days</text>')
+    p.append(f'<text class="s" x="{L}" y="78" font-size="14" fill="{t["muted"]}">'
+             f'Read off the local transcripts, subagent and workflow runs included, '
+             f'one count per API response.</text>')
+
+    tw = (W - L - 4) / len(tiles)
+    for i, (val, lab) in enumerate(tiles):
+        tx = L + i * tw
+        if i:
+            p.append(f'<rect x="{tx-16:.0f}" y="100" width="1" height="36" fill="{t["rule"]}"/>')
+        p.append(f'<text class="m" x="{tx:.0f}" y="122" font-size="21" font-weight="600" '
+                 f'fill="{t["ink"]}">{val}</text>'
+                 f'<text class="m" x="{tx:.0f}" y="138" font-size="10.5" letter-spacing="0.9" '
+                 f'fill="{t["faint"]}">{lab}</text>')
+
+    for i in range(5):
+        v = ytop * i / 4
+        gy = y(v)
+        p.append(f'<line x1="{L}" y1="{gy:.1f}" x2="{L+pw}" y2="{gy:.1f}" '
+                 f'stroke="{t["grid"]}" stroke-width="1"/>')
+        p.append(f'<text class="m" x="{L+pw+10}" y="{gy+4:.1f}" font-size="11" '
+                 f'fill="{t["faint"]}">{tick(v)}</text>')
+
+    p.append(f'<path class="wash" d="{area}" fill="url(#tfill)"/>')
+    p.append(f'<path class="trace" d="{line}" fill="none" stroke="{t["accent"]}" '
+             f'stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>')
+
+    ex, ey = pts[-1]
+    p.append(f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="4" fill="{t["accent"]}" '
+             f'stroke="{t["surface"]}" stroke-width="2"/>')
+    p.append(f'<text class="m" x="{ex:.1f}" y="{ey-14:.1f}" font-size="13" font-weight="600" '
+             f'text-anchor="end" fill="{t["ink"]}">{total/1e9:.2f}B tokens</text>')
+
+    p.append(f'<line x1="{L}" y1="{TOP+ph:.1f}" x2="{L+pw}" y2="{TOP+ph:.1f}" '
+             f'stroke="{t["rule"]}" stroke-width="1"/>')
+    for i, anchor in ((0, "start"), (days//2, "middle"), (days-1, "end")):
+        d = date.fromisoformat(daily[i]["date"]).strftime("%b %-d, %Y")
+        p.append(f'<text class="m" x="{x(i):.1f}" y="{TOP+ph+20:.0f}" font-size="11" '
+                 f'text-anchor="{anchor}" fill="{t["faint"]}">{d}</text>')
+    p.append(f'<text class="m" x="{L}" y="{H-8}" font-size="11" fill="{t["faint"]}">'
+             f'Cumulative tokens, input plus output plus cache. Snapshot {k["as_of"]}.</text>')
+    p.append("</svg>")
+    return "\n".join(p)
+
+
 def stack_strip(theme):
     """Chips in the same language as the figures, so nothing on the page is a
     third-party badge. Static: there is nothing here worth animating."""
@@ -185,10 +293,12 @@ def stack_strip(theme):
 def main():
     contrib = json.loads((ROOT / "data" / "contributions.json").read_text())
     reclaim = json.loads((ROOT / "data" / "reclaim.json").read_text())
+    tokens = json.loads((ROOT / "data" / "claude-tokens.json").read_text())
     total = 0
     for theme in THEMES:
         for name, svg in (("title", title_card(theme, contrib)),
                           ("compute", compute_figure(theme, reclaim)),
+                          ("tokens", tokens_figure(theme, tokens)),
                           ("stack", stack_strip(theme))):
             p = ROOT / "assets" / f"{name}-{theme}.svg"
             p.write_text(svg)
