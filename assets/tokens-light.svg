@@ -9,8 +9,7 @@
 .wash{opacity:1;animation:wa 1.9s ease-out}
 @keyframes wa{from{opacity:0}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
-<text class="m" x="4" y="18" font-size="12" letter-spacing="1.2" fill="#818b98">CLAUDE CODE · TOKEN METER</text>
-<text class="s" x="4" y="52" font-size="26" font-weight="600" letter-spacing="-0.5" fill="#1f2328">6.09B tokens through the agent loop in 35 days</text>
+<text class="s" x="4" y="52" font-size="26" font-weight="600" letter-spacing="-0.5" fill="#1f2328">Claude Code token counts</text>
 <text class="s" x="4" y="78" font-size="14" fill="#59636e">Read off the local transcripts, subagent and workflow runs included, one count per API response.</text>
 <text class="m" x="4" y="122" font-size="21" font-weight="600" fill="#1f2328">314</text><text class="m" x="4" y="138" font-size="10.5" letter-spacing="0.9" fill="#818b98">SESSIONS</text>
 <rect x="286" y="100" width="1" height="36" fill="#d1d9e0"/>

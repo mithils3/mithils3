@@ -218,11 +218,8 @@ def tokens_figure(theme, k):
 @keyframes wa{{from{{opacity:0}}}}
 {REDUCED}</style>""")
 
-    p.append(f'<text class="m" x="{L}" y="18" font-size="12" letter-spacing="1.2" '
-             f'fill="{t["faint"]}">CLAUDE CODE · TOKEN METER</text>')
     p.append(f'<text class="s" x="{L}" y="52" font-size="26" font-weight="600" '
-             f'letter-spacing="-0.5" fill="{t["ink"]}">'
-             f'{total/1e9:.2f}B tokens through the agent loop in {days} days</text>')
+             f'letter-spacing="-0.5" fill="{t["ink"]}">Claude Code token counts</text>')
     p.append(f'<text class="s" x="{L}" y="78" font-size="14" fill="{t["muted"]}">'
              f'Read off the local transcripts, subagent and workflow runs included, '
              f'one count per API response.</text>')
