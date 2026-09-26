@@ -1,19 +1,19 @@
 {
- "as_of": "2026-09-24",
+ "as_of": "2026-09-25",
  "window": [
   "2026-08-23",
-  "2026-09-24"
+  "2026-09-25"
  ],
- "sessions": 311,
+ "sessions": 320,
  "projects": 22,
- "turns": 54250,
- "tool_calls": 69826,
- "tokens": 7650834660,
+ "turns": 55524,
+ "tool_calls": 71278,
+ "tokens": 7800600819,
  "totals": {
-  "input_tokens": 528676,
-  "output_tokens": 20652788,
-  "cache_creation_input_tokens": 277134306,
-  "cache_read_input_tokens": 7352518890
+  "input_tokens": 531260,
+  "output_tokens": 21128454,
+  "cache_creation_input_tokens": 282098416,
+  "cache_read_input_tokens": 7496842689
  },
  "peak": {
   "date": "2026-09-23",
@@ -216,9 +216,15 @@
   },
   {
    "date": "2026-09-24",
-   "tokens": 355836724,
-   "cum": 7650834660,
-   "turns": 2225
+   "tokens": 364036971,
+   "cum": 7659034907,
+   "turns": 2275
+  },
+  {
+   "date": "2026-09-25",
+   "tokens": 141565912,
+   "cum": 7800600819,
+   "turns": 1224
   }
  ]
 }
