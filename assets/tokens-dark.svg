@@ -1,21 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 404" width="1200" height="404" role="img" aria-label="Claude Code token meter. 20.10 billion cumulative tokens across 617 sessions, 2026-08-23 to 2026-10-23.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 404" width="1200" height="404" role="img" aria-label="Claude Code token meter. 21.16 billion cumulative tokens across 626 sessions, 2026-08-23 to 2026-10-24.">
 <defs><linearGradient id="tfill" x1="0" y1="0" x2="0" y2="1">
 <stop offset="0" stop-color="#56d364" stop-opacity="0.30"/>
 <stop offset="1" stop-color="#56d364" stop-opacity="0.02"/></linearGradient></defs>
 <style>
 .s{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}.m{font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace}
-.trace{stroke-dasharray:1099;stroke-dashoffset:0;animation:dr 1.7s cubic-bezier(.3,.7,.3,1)}
-@keyframes dr{from{stroke-dashoffset:1099}}
+.trace{stroke-dasharray:1100;stroke-dashoffset:0;animation:dr 1.7s cubic-bezier(.3,.7,.3,1)}
+@keyframes dr{from{stroke-dashoffset:1100}}
 .wash{opacity:1;animation:wa 1.9s ease-out}
 @keyframes wa{from{opacity:0}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
 <text class="s" x="4" y="52" font-size="26" font-weight="600" letter-spacing="-0.5" fill="#e6edf3">Claude Code token counts</text>
 <text class="s" x="4" y="78" font-size="14" fill="#9198a1">Read off the local transcripts, subagent and workflow runs included, one count per API response.</text>
-<text class="m" x="4" y="122" font-size="21" font-weight="600" fill="#e6edf3">617</text><text class="m" x="4" y="138" font-size="10.5" letter-spacing="0.9" fill="#6e7681">SESSIONS</text>
+<text class="m" x="4" y="122" font-size="21" font-weight="600" fill="#e6edf3">626</text><text class="m" x="4" y="138" font-size="10.5" letter-spacing="0.9" fill="#6e7681">SESSIONS</text>
 <rect x="286" y="100" width="1" height="36" fill="#30363d"/>
-<text class="m" x="302" y="122" font-size="21" font-weight="600" fill="#e6edf3">130,813</text><text class="m" x="302" y="138" font-size="10.5" letter-spacing="0.9" fill="#6e7681">ASSISTANT TURNS</text>
+<text class="m" x="302" y="122" font-size="21" font-weight="600" fill="#e6edf3">137,244</text><text class="m" x="302" y="138" font-size="10.5" letter-spacing="0.9" fill="#6e7681">ASSISTANT TURNS</text>
 <rect x="584" y="100" width="1" height="36" fill="#30363d"/>
-<text class="m" x="600" y="122" font-size="21" font-weight="600" fill="#e6edf3">163,746</text><text class="m" x="600" y="138" font-size="10.5" letter-spacing="0.9" fill="#6e7681">TOOL CALLS</text>
+<text class="m" x="600" y="122" font-size="21" font-weight="600" fill="#e6edf3">171,015</text><text class="m" x="600" y="138" font-size="10.5" letter-spacing="0.9" fill="#6e7681">TOOL CALLS</text>
 <rect x="882" y="100" width="1" height="36" fill="#30363d"/>
 <text class="m" x="898" y="122" font-size="21" font-weight="600" fill="#e6edf3">96%</text><text class="m" x="898" y="138" font-size="10.5" letter-spacing="0.9" fill="#6e7681">SERVED FROM CACHE</text>
 <line x1="4" y1="334.0" x2="1096" y2="334.0" stroke="#21262d" stroke-width="1"/>
@@ -28,13 +28,13 @@
 <text class="m" x="1106" y="201.5" font-size="11" fill="#6e7681">30B</text>
 <line x1="4" y1="152.0" x2="1096" y2="152.0" stroke="#21262d" stroke-width="1"/>
 <text class="m" x="1106" y="156.0" font-size="11" fill="#6e7681">40B</text>
-<path class="wash" d="M4.0 333.8 L21.9 333.4 L39.8 332.8 L57.7 332.5 L75.6 332.4 L93.5 332.2 L111.4 332.1 L129.3 329.9 L147.2 328.7 L165.1 327.5 L183.0 326.9 L200.9 324.6 L218.8 321.9 L236.7 320.9 L254.6 320.1 L272.5 318.6 L290.4 317.1 L308.3 316.7 L326.2 315.9 L344.1 315.8 L362.0 315.7 L379.9 314.9 L397.8 314.5 L415.7 314.1 L433.6 313.2 L451.5 312.8 L469.4 312.7 L487.3 311.1 L505.2 310.7 L523.1 310.0 L541.0 305.6 L559.0 300.8 L576.9 299.2 L594.8 298.2 L612.7 294.8 L630.6 294.5 L648.5 294.4 L666.4 292.9 L684.3 292.8 L702.2 290.5 L720.1 289.2 L738.0 288.2 L755.9 284.8 L773.8 282.4 L791.7 279.5 L809.6 278.5 L827.5 274.1 L845.4 272.0 L863.3 269.6 L881.2 268.4 L899.1 265.9 L917.0 263.4 L934.9 257.4 L952.8 252.9 L970.7 248.4 L988.6 248.0 L1006.5 247.6 L1024.4 247.5 L1042.3 247.5 L1060.2 246.9 L1078.1 244.6 L1096.0 242.5 L1096.0 334.0 L4 334.0 Z" fill="url(#tfill)"/>
-<path class="trace" d="M4.0 333.8 L21.9 333.4 L39.8 332.8 L57.7 332.5 L75.6 332.4 L93.5 332.2 L111.4 332.1 L129.3 329.9 L147.2 328.7 L165.1 327.5 L183.0 326.9 L200.9 324.6 L218.8 321.9 L236.7 320.9 L254.6 320.1 L272.5 318.6 L290.4 317.1 L308.3 316.7 L326.2 315.9 L344.1 315.8 L362.0 315.7 L379.9 314.9 L397.8 314.5 L415.7 314.1 L433.6 313.2 L451.5 312.8 L469.4 312.7 L487.3 311.1 L505.2 310.7 L523.1 310.0 L541.0 305.6 L559.0 300.8 L576.9 299.2 L594.8 298.2 L612.7 294.8 L630.6 294.5 L648.5 294.4 L666.4 292.9 L684.3 292.8 L702.2 290.5 L720.1 289.2 L738.0 288.2 L755.9 284.8 L773.8 282.4 L791.7 279.5 L809.6 278.5 L827.5 274.1 L845.4 272.0 L863.3 269.6 L881.2 268.4 L899.1 265.9 L917.0 263.4 L934.9 257.4 L952.8 252.9 L970.7 248.4 L988.6 248.0 L1006.5 247.6 L1024.4 247.5 L1042.3 247.5 L1060.2 246.9 L1078.1 244.6 L1096.0 242.5" fill="none" stroke="#56d364" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="1096.0" cy="242.5" r="4" fill="#56d364" stroke="#0d1117" stroke-width="2"/>
-<text class="m" x="1096.0" y="228.5" font-size="13" font-weight="600" text-anchor="end" fill="#e6edf3">20.10B tokens</text>
+<path class="wash" d="M4.0 333.8 L21.6 333.4 L39.2 332.8 L56.8 332.5 L74.5 332.4 L92.1 332.2 L109.7 332.1 L127.3 329.9 L144.9 328.7 L162.5 327.5 L180.1 326.9 L197.7 324.6 L215.4 321.9 L233.0 320.9 L250.6 320.1 L268.2 318.6 L285.8 317.1 L303.4 316.7 L321.0 315.9 L338.6 315.8 L356.3 315.7 L373.9 314.9 L391.5 314.5 L409.1 314.1 L426.7 313.2 L444.3 312.8 L461.9 312.7 L479.5 311.1 L497.2 310.7 L514.8 310.0 L532.4 305.6 L550.0 300.8 L567.6 299.2 L585.2 298.2 L602.8 294.8 L620.5 294.5 L638.1 294.4 L655.7 292.9 L673.3 292.8 L690.9 290.5 L708.5 289.2 L726.1 288.2 L743.7 284.8 L761.4 282.4 L779.0 279.5 L796.6 278.5 L814.2 274.1 L831.8 272.0 L849.4 269.6 L867.0 268.4 L884.6 265.9 L902.3 263.4 L919.9 257.4 L937.5 252.9 L955.1 248.4 L972.7 248.0 L990.3 247.6 L1007.9 247.5 L1025.5 247.5 L1043.2 246.9 L1060.8 244.6 L1078.4 242.5 L1096.0 237.7 L1096.0 334.0 L4 334.0 Z" fill="url(#tfill)"/>
+<path class="trace" d="M4.0 333.8 L21.6 333.4 L39.2 332.8 L56.8 332.5 L74.5 332.4 L92.1 332.2 L109.7 332.1 L127.3 329.9 L144.9 328.7 L162.5 327.5 L180.1 326.9 L197.7 324.6 L215.4 321.9 L233.0 320.9 L250.6 320.1 L268.2 318.6 L285.8 317.1 L303.4 316.7 L321.0 315.9 L338.6 315.8 L356.3 315.7 L373.9 314.9 L391.5 314.5 L409.1 314.1 L426.7 313.2 L444.3 312.8 L461.9 312.7 L479.5 311.1 L497.2 310.7 L514.8 310.0 L532.4 305.6 L550.0 300.8 L567.6 299.2 L585.2 298.2 L602.8 294.8 L620.5 294.5 L638.1 294.4 L655.7 292.9 L673.3 292.8 L690.9 290.5 L708.5 289.2 L726.1 288.2 L743.7 284.8 L761.4 282.4 L779.0 279.5 L796.6 278.5 L814.2 274.1 L831.8 272.0 L849.4 269.6 L867.0 268.4 L884.6 265.9 L902.3 263.4 L919.9 257.4 L937.5 252.9 L955.1 248.4 L972.7 248.0 L990.3 247.6 L1007.9 247.5 L1025.5 247.5 L1043.2 246.9 L1060.8 244.6 L1078.4 242.5 L1096.0 237.7" fill="none" stroke="#56d364" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1096.0" cy="237.7" r="4" fill="#56d364" stroke="#0d1117" stroke-width="2"/>
+<text class="m" x="1096.0" y="223.7" font-size="13" font-weight="600" text-anchor="end" fill="#e6edf3">21.16B tokens</text>
 <line x1="4" y1="334.0" x2="1096" y2="334.0" stroke="#30363d" stroke-width="1"/>
 <text class="m" x="4.0" y="354" font-size="11" text-anchor="start" fill="#6e7681">Aug 23, 2026</text>
-<text class="m" x="559.0" y="354" font-size="11" text-anchor="middle" fill="#6e7681">Sep 23, 2026</text>
-<text class="m" x="1096.0" y="354" font-size="11" text-anchor="end" fill="#6e7681">Oct 23, 2026</text>
-<text class="m" x="4" y="396" font-size="11" fill="#6e7681">Cumulative tokens, input plus output plus cache. Snapshot 2026-10-23.</text>
+<text class="m" x="550.0" y="354" font-size="11" text-anchor="middle" fill="#6e7681">Sep 23, 2026</text>
+<text class="m" x="1096.0" y="354" font-size="11" text-anchor="end" fill="#6e7681">Oct 24, 2026</text>
+<text class="m" x="4" y="396" font-size="11" fill="#6e7681">Cumulative tokens, input plus output plus cache. Snapshot 2026-10-24.</text>
 </svg>
