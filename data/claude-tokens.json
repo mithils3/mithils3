@@ -1,25 +1,25 @@
 {
- "as_of": "2026-11-08",
+ "as_of": "2026-11-09",
  "window": [
   "2026-08-23",
-  "2026-11-08"
+  "2026-11-09"
  ],
- "sessions": 720,
+ "sessions": 738,
  "projects": 34,
- "turns": 194550,
- "tool_calls": 235868,
- "tokens": 28962249898,
+ "turns": 231865,
+ "tool_calls": 277925,
+ "tokens": 34202867427,
  "totals": {
-  "input_tokens": 815467,
-  "output_tokens": 144959215,
-  "cache_creation_input_tokens": 995402702,
-  "cache_read_input_tokens": 27821072514
+  "input_tokens": 895833,
+  "output_tokens": 188742321,
+  "cache_creation_input_tokens": 1156454423,
+  "cache_read_input_tokens": 32856774850
  },
  "peak": {
   "date": "2026-11-02",
-  "tokens": 2327017845,
-  "cum": 28930530469,
-  "turns": 20331
+  "tokens": 2999032812,
+  "cum": 29602545436,
+  "turns": 24926
  },
  "daily": [
   {
@@ -450,45 +450,51 @@
   },
   {
    "date": "2026-11-02",
-   "tokens": 2327017845,
-   "cum": 28930530469,
-   "turns": 20331
+   "tokens": 2999032812,
+   "cum": 29602545436,
+   "turns": 24926
   },
   {
    "date": "2026-11-03",
-   "tokens": 484850,
-   "cum": 28931015319,
-   "turns": 8
+   "tokens": 552588447,
+   "cum": 30155133883,
+   "turns": 4162
   },
   {
    "date": "2026-11-04",
-   "tokens": 4304768,
-   "cum": 28935320087,
-   "turns": 60
+   "tokens": 1099132927,
+   "cum": 31254266810,
+   "turns": 7168
   },
   {
    "date": "2026-11-05",
-   "tokens": 3845576,
-   "cum": 28939165663,
-   "turns": 54
+   "tokens": 975292583,
+   "cum": 32229559393,
+   "turns": 5270
   },
   {
    "date": "2026-11-06",
-   "tokens": 12893758,
-   "cum": 28952059421,
-   "turns": 95
+   "tokens": 552359389,
+   "cum": 32781918782,
+   "turns": 3714
   },
   {
    "date": "2026-11-07",
-   "tokens": 0,
-   "cum": 28952059421,
-   "turns": 0
+   "tokens": 75192368,
+   "cum": 32857111150,
+   "turns": 504
   },
   {
    "date": "2026-11-08",
-   "tokens": 10190477,
-   "cum": 28962249898,
-   "turns": 137
+   "tokens": 445346052,
+   "cum": 33302457202,
+   "turns": 4432
+  },
+  {
+   "date": "2026-11-09",
+   "tokens": 900410225,
+   "cum": 34202867427,
+   "turns": 7824
   }
  ]
 }
